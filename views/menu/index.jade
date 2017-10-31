@@ -1,0 +1,47 @@
+extends ../layout.jade
+block contenido
+
+    div()
+    label(for="checkbox")
+    input(type="checkbox", name="checkboxname", value="value").form-control
+    | Checkbox Label Goes Here
+    
+    div(class="col-md-3 center-block no-float top-space")
+    table(table class="table table-bordered")
+      thead
+        tr
+          th Actividad
+          th Unidad de medida
+          th Valor Unitario por metro cuadrado
+          th Valor total
+      tbody
+        tr
+          th(input type="checkbox", name="completed", checked=(true===false ? "checked" : undefined)) Preliminares
+          td(input type="text" name="")
+          td
+            th(input type="text" name="")
+        tr
+          th(scope="row" input type="checkbox" value="") Demoliciones
+          td(input type="text" value="")
+          td
+            th(input type="text" value="")
+        tr
+          th(scope="row" input type="checkbox" value="") Pañetes Afinados e Impermeabilización
+          td(input type="text" value="")
+          td
+            th(input type="text" value="")
+        tr
+          th(scope="row" input type="checkbox" value="") Enchape
+          td(input type="text" value="")
+          td
+            th(input type="text" value="")
+        tr
+          th(scope="row" input type="checkbox" value="") Pintura
+          td(input type="text" value="")
+          td
+            th(input type="text" value="")
+        tr
+          th(scope="row" input type="checkbox" value="") Instalación de aparatos
+          td(input type="text" value="")
+          td
+            th(input type="text" value="")
