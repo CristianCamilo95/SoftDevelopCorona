@@ -1,5 +1,6 @@
 var express = require('express');
-var mongoose = require('mongoose');
+var mysql = require('mysql');
+//var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var path = require("path");
 var engines = require('consolidate');
@@ -10,17 +11,32 @@ app.set('views', __dirname);
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-mongoose.Promise = require('bluebird');
-mongoose.connect("mongodb://localhost/dbcorona", { useMongoClient: true });
+//mongoose.Promise = require('bluebird');
+//mongoose.connect("mongodb://localhost/dbcorona", { useMongoClient: true });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "mysqldb",
+  database: "corona"
+});
+
+
+
+con.connect(function(err) {
+  //if (err) throw err;
+  console.log("Connected!");
+});
+
+
 
 //Definir el schema de nuestros productos
-var productSchema ={
+/**var productSchema ={
   preliminares:String,
   demoliciones:String,
   pañetes:String,
@@ -28,9 +44,9 @@ var productSchema ={
   pintura:String,
   instalacion:String,
   aseo:String
-};
+};**/
 
-var Product = mongoose.model("Product", productSchema);
+//var Product = mongoose.model("Product", productSchema);
 
 //app.set("view engine","jade");
 
@@ -65,19 +81,29 @@ app.get("/SeguimientoCotizacion", function(req,res){
     });
 
 app.get("/menu", function(req,res){
-  Product.find(function(err, documento){
-    if (err){console.log(err);}
-    res.render("views/menu/prod",{products: documento})
-  });
+  //Product.find(function(err, documento){
+    //if (err){console.log(err);}
+    res.render("views/menu/prod")
+  //});
 });
 
 
 app.post("/menu", function(req,res){
   //console.log(req.bodyParser);
-  var tmp = req.body['title'];
+  var title = req.body['title'];
+  var des = req.body['description'];
+  var cant = req.body['pricing'];
+  console.log(title)
+  console.log(des)
+  console.log(cant)
+  var sql = "INSERT INTO producto (nombre, descripcion, cantidad) VALUES ('"+title+"', '"+des+"', '"+cant+"')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+res.render("views/menu/prod");
 
-    console.log(tmp)
-  var data = {
+  /**var data = {
     title: req.body.title,
     description: req.body.description,
     imageUrl: "data.png",
@@ -89,7 +115,7 @@ app.post("/menu", function(req,res){
   product.save(function(err){
     console.log(product);
     res.render("views/menu/prod");
-  })
+  })**/
 });
 
 app.get("/menu/prod", function(req,res){
