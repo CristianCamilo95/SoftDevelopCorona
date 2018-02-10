@@ -1,197 +1,800 @@
 <!DOCTYPE html>
-<html><head>
-    <title>Seguimiento cotizacion</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <!-- <link href="../includes/boostrap3/css/bootstrap.css" type="text/css" rel="stylesheet">-->
+<html>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
+  <title>Seguimiento cotizacion</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="/css/tab.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 
-    <style>
-      html, body {
-        height: 85%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
+<body background="/imgs/fondoCorona.jpg">
+  <div class="col-xs-12">
+    <center><img src="/imgs/corona.png"><img></center>
+  </div>
+  <div class="col-xs-12" style="background-color:#000; height:20px"></div>
+  <div class="page-header">
+    <center>
+      <h3>ALMACENES CORONA SAS</h3></center>
+    <center>
+      <h3>Servicio de Instalación</h3></center>
+    <center>
+      <h3>Cotización presupuesto de obra</h3></center>
+    <center>
+      <h3>Información general</h3></center>
+  </div>
 
-    </style>
+  <div class="container col-xs-12">
+    <form id="form1" method="post" action="/informacion">
+      <div class="col-xs-6">
 
-    </head>
+        <label for="puntoVenta">Punto de venta</label>
+        <input type="text" class="form-control" name="puntoVenta" id="puntoVenta" placeholder="Nombre P.V" required autofocus/>
+      </div>
+      <div class="col-xs-6">
+        <label for="asesor">Nombre asesor</label>
+        <input type="text" class="form-control" name="asesor" id="asesor" placeholder="Nombre asesor" required autofocus/>
 
-    <body background="/imgs/fondoCorona.jpg">
-   <div class="col-xs-12">
-   <center><img src="/imgs/corona.jpg"><img></center>
-   </div>
+      </div>
+      <div class="col-xs-6">
+        <label for="cliente">Nombre Cliente</label>
+        <input type="text" class="form-control" name="cliente" id="cliente" placeholder="Cliente" required autofocus />
+      </div>
+      <div class="col-xs-6">
+        <label for="identificacion">N° Identificacion</label>
+        <input type="text" class="form-control" name="identificacion" id="identificacion" placeholder="Identificacion" required autofocus />
+      </div>
+      <div class="col-xs-6">
+        <label for="nOrden">N° Orden se servicio</label>
+        <input type="text" class="form-control" name="nOrden" id="nOrden" placeholder="# orden" required autofocus/>
+      </div>
+      <div class="col-xs-6">
+        <label for="fecha">Fecha cotizacion</label>
+        <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Fecha" required autofocus/>
+
+      </div>
+      <div class="col-xs-6">
+        <label for="vigencia">Vigencia cotizacion</label>
+        <input type="date" class="form-control" name="vigencia" id="vigencia" placeholder="Vigencia" required autofocus/>
+
+      </div>
+      <div class="col-xs-6">
+        <div style="background-color:#000; height:20px"></div>
+        <label for="Info">Agregar Información general</label>
+        <button id="btnCotizacion" class="btn btn-primary">Aceptar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-xs-12" style="background-color:#000; height:20px"></div>
+
+  <div class="page-header">
+    <center>
+      <h1>Datos de Obra<br><small>Cotizacion para baño standard</small></h1></center>
+  </div>
+
+  <div class="container col-xs-12">
+    <!--  <form id="form2" method="post" action="/medidas">-->
+    <div class="col-xs-6">
+      <label for="Ancho">Ancho</label>
+      <input type="number" step="0.01" min="0" class="form-control" name="ancho" id="ancho" placeholder="m" required autofocus/>
+    </div>
+    <div class="col-xs-6">
+      <label for="Largo">Largo</label>
+      <input type="number" step="0.01" min="0" class="form-control" name="largo" id="largo" placeholder="m" required autofocus/>
+
+    </div>
+    <div class="col-xs-6">
+      <label for="Metros">N° metros a cotizar</label>
+      <input type="number" step="0.01" min="0" class="form-control" name="nMetros" id="nMetros" placeholder="#" readonly/>
+    </div>
+    <div class="col-xs-6">
+      <label for="Dias">Dias de obra</label>
+      <input type="number" min="0" class="form-control" name="dias" id="dias" placeholder="Dias" />
+    </div>
+    <div class="col-xs-6">
+      <label for="valor">Valor cotizacion</label>
+      <input type="number" min="0" class="form-control" name="valor" id="valor" placeholder="$" readonly/>
+    </div>
+    <div class="col-xs-6">
+      <div style="background-color:#000; height:20px"></div>
+      <label for="Info">Ingresar medidas</label>
+      <button id="btnMedidas" class="btn btn-primary">Aceptar</button>
+    </div>
+    <!--  </form> -->
+  </div>
+
+  <div class="container col-xs-12 form-group has-success has-feedback">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Actividad</th>
+          <th>Unidad de Medida</th>
+          <th>Valor unitario x metro cuadrado</th>
+          <th>Valor total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><label><input id="preliminares" type="checkbox" value="">Preliminares</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmpre" type="number" step="0.01" min="0" class="form-control" value="" readonly></td>
+          <td><input id="vtpre" type="number" step="0.01" min="0" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"><label><input id="demoliciones" type="checkbox" value="">Demoliciones</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmdem" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vtdem" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"><label><input id="panetes" type="checkbox" value="">Pañetes Afinados e impermeabilizacion</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmpan" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vtpan" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+
+        <tr>
+          <th scope="row"><label><input id="enchape" type="checkbox" value="">Enchape</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmen" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vten" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"><label><input id="pintura" type="checkbox" value="">Pintura</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmpin" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vtpin" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"><label><input id="aparatos" type="checkbox" value="">Instalación de aparatos</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxmapar" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vtapar" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+
+        <tr>
+          <th scope="row"><label><input id="aseo" type="checkbox" value="">Aseo</label></th>
+          <td><input type="text" class="form-control" value="und" readonly></td>
+          <td><input id="vuxma" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+          <td><input id="vtpa" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td><button id="btnTot" class="btn btn-primary">Ver</button></td>
+          <td><label>Subtotal</label></td>
+          <td><input id="subt" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td><label>Adicionales</label></td>
+          <td><input id="adic" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td><label>Total</label></td>
+          <td><input id="tota" type="number" min="0" step="0.01" class="form-control" value="" readonly></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-xs-12">
+
+    <div class="tab">
+      <button class="tablinks" onclick="openDetail(event, 'Preliminares')">Preliminares</button>
+      <button class="tablinks" onclick="openDetail(event, 'Demoliciones')">Demoliciones</button>
+      <button class="tablinks" onclick="openDetail(event, 'Panetes')">Pañetes afinados e impermeabilizacion</button>
+      <button class="tablinks" onclick="openDetail(event, 'Enchape')">Enchape</button>
+      <button class="tablinks" onclick="openDetail(event, 'Pintura')">Pintura</button>
+      <button class="tablinks" onclick="openDetail(event, 'Instalacion')">Instalacion de Aparatos</button>
+      <button class="tablinks" onclick="openDetail(event, 'Aseo')">Aseo</button>
+      <button class="tablinks" onclick="openDetail(event, 'Adicionales')">Adicionales cotizacion</button>
+    </div>
+
     <div class="col-xs-12" style="background-color:#000; height:20px"></div>
-    <div class="page-header">
-  <center><h1>Cotización aproximada<br><small>Detalle de obra a cotizar</small></h1></center>
-</div>
 
-<div class="container col-xs-12">
-  <div class="col-xs-6">
-    <label for="origen">Punto de venta</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="Nombre P.V" />
-   </div>
-<div class="col-xs-6">
-    <label for="destino">Nombre asesor</label>
-    <input type="text" class="form-control" name="destino" id="destino" placeholder="Nombre asesor" />
+    <div id="Preliminares" class="tabcontent">
+      <h3>Preliminares</h3>
+      <p>Esta es la pestaña para seleccionar los preliminares.</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
 
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte de marco y puerta en madera</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec1" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevt1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte aparato Sanitario (Sanitario, lavamanos, ducha,bidet, etc.)</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec2" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu2" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevt2" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf2" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte griferias</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec3" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu3" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevt3" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf3" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte espejo con o sin mueble</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec4" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu4" type="number" step="0.01" class="form-control" value="11500.00" readonly></td>
+              <td><input id="prevt4" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf4" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte plafón de iluminación</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec5" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu5" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevt5" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf5" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte division ducha vidrio templado / acrilica</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec6" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu6" type="number" step="0.01" class="form-control" value="27900.00" readonly></td>
+              <td><input id="prevt6" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf6" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte de Aparatos electricos</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec7" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu7" type="number" step="0.01" class="form-control" value="4500.00" readonly></td>
+              <td><input id="prevt7" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf7" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Desmonte de accesorios</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec8" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu8" type="number" step="0.01" class="form-control" value="1700.00" readonly></td>
+              <td><input id="prevt8" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf8" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Desmonte e Instalación extractor de olores</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="prec9" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevu9" type="number" step="0.01" class="form-control" value="28800.00" readonly></td>
+              <td><input id="prevt9" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepf9" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcular" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valt" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfm" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-xs-6">
-    <label for="origen">Nombre Cliente</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="Cliente" />
-   </div>
-<div class="col-xs-6">
-    <label for="destino">N° Identificacion</label>
-    <input type="text" class="form-control" name="destino" id="destino" placeholder="Identificacion" />
+
+    <div id="Demoliciones" class="tabcontent">
+      <h3>Demoliciones</h3>
+      <p>Esta es la pestaña para los detalles de demolicion.</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Demolicion de enchapes </label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precdemo1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevudemo1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtdemo1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfdemo1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Demolición Poyo (Ducha o mueble) </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precdemo2" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevudemo2" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevtdemo2" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfdemo2" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Demolición Mortero, Plantilla, Alistado, espesor de 0.02 m a 0.04 m</label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precdemo3" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevudemo3" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevtdemo3" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfdemo3" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularDemo" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtdemo" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmdemo" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-xs-6">
-    <label for="origen">N° Orden se servicio</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="# orden" />
-   </div>
-<div class="col-xs-6">
-    <label for="destino">Fecha cotizacion</label>
-    <input type="date" class="form-control" name="destino" id="destino" placeholder="Fecha" />
 
+    <div id="Panetes" class="tabcontent">
+      <h3>PAÑETES AFINADOS E IMPERMEABILIZACION</h3>
+      <p>Esta es la pestaña para los detalles de PAÑETES AFINADOS E IMPERMEABILIZACION</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Construccion poyo ducha, encharque de ducha </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precpan1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtpan1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Pañete, Repello, Friso, Revoque muros</label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precpan2" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan2" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevtpan2" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan2" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Pañete, Repello, Friso, Revoque muros</label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precpan3" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan3" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevtpan3" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan3" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Regatas y Resane </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precpan4" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan4" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtpan4" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan4" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Filos y dilataciones en pañete </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precpan5" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan5" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevtpan5" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan5" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Afinado piso alistado e=0.04 M2</label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precpan6" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan6" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevtpan6" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan6" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">Impermeabilización area ducha con material impermeabilizante paraguas</label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precpan7" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupan7" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevtpan7" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpan7" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularPan" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtpan" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmpan" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-xs-6">
-    <label for="destino">Vigencia cotizacion</label>
-    <input type="date" class="form-control" name="destino" id="destino" placeholder="Vigencia" />
 
+    <div id="Enchape" class="tabcontent">
+      <h3>INSTALACIONES HIDRAULICAS</h3>
+      <h3>ENCHAPES</h3>
+      <p>Esta es la pestaña para los detalles de ENCHAPES</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO. Inst.enchapes pared (Ceramica - Porcelanato) M2 </label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precen1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevuen1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevten1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfen1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO. Inst.enchapes  piso  (Ceramica - Porcelanato) M2</label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precen2" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevuen2" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevten2" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfen2" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Inst. enchape  (Ceramica - Porcelanato) MLs</label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precen3" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevuen3" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevten3" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfen3" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Inst. Cenefa (Cristanac - Decorado) ML </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precen4" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevuen4" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevten4" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfen4" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Acolillado, Biselado (Cerámico - Porcelanato ) ML </label></th>
+              <td><input type="text" class="form-control" value="ml" readonly></td>
+              <td><input id="precen5" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevuen5" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevten5" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfen5" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularEn" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valten" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmen" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
 
- <div class="col-xs-12" style="background-color:#000; height:20px"></div>
+    <div id="Pintura" class="tabcontent">
+      <h3>PINTURAS</h3>
+      <p>Esta es la pestaña para los detalles de PINTURAS</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
 
-<div class="page-header">
-  <center><h1>Datos de Obra<br><small>Cotizacion para baño standard</small></h1></center>
-</div>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Aplicación Estuco y Pintura cielo raso a 3 manos Global </label></th>
+              <td><input type="text" class="form-control" value="m2" readonly></td>
+              <td><input id="precpin1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupin1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtpin1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpin1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
 
-<div class="container col-xs-12">
-  <div class="col-xs-6">
-    <label for="origen">Ancho</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="m" />
-   </div>
-<div class="col-xs-6">
-    <label for="destino">Largo</label>
-    <input type="text" class="form-control" name="destino" id="destino" placeholder="m" />
-
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularPin" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtpin" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmpin" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-xs-6">
-    <label for="origen">N° metros a cotizar</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="#" />
-   </div>
-<div class="col-xs-6">
-    <label for="destino">Dias de obra</label>
-    <input type="text" class="form-control" name="destino" id="destino" placeholder="Dias" />
+
+    <div id="Instalacion" class="tabcontent">
+      <h3>INSTALACION APARATOS</h3>
+      <p>Esta es la pestaña para seleccionar los detalles de INSTALACION de APARATOS.</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">MO Instalación roseta, bala halogena o led</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin1" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtin1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">SI Instalacion Aparatos electricos Marca Luminex Arquea</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin2" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin2" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevtin2" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin2" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación Sanitario con o sin brida</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin3" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin3" type="number" step="0.01" class="form-control" value="8800.00" readonly></td>
+              <td><input id="prevtin3" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin3" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación de lavamanos con griferia</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin4" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin4" type="number" step="0.01" class="form-control" value="11500.00" readonly></td>
+              <td><input id="prevtin4" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin4" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación de accesorios </label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin5" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin5" type="number" step="0.01" class="form-control" value="15000.00" readonly></td>
+              <td><input id="prevtin5" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin5" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación Rejilla de Piso</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin6" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin6" type="number" step="0.01" class="form-control" value="27900.00" readonly></td>
+              <td><input id="prevtin6" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin6" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación tapa registro plastica</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin7" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin7" type="number" step="0.01" class="form-control" value="4500.00" readonly></td>
+              <td><input id="prevtin7" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin7" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación Espejo estandar</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin8" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin8" type="number" step="0.01" class="form-control" value="1700.00" readonly></td>
+              <td><input id="prevtin8" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin8" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación marco y puerta en madera</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin9" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin9" type="number" step="0.01" class="form-control" value="28800.00" readonly></td>
+              <td><input id="prevtin9" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin9" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Instalación cenefa o pirlan (ceramico-madera)</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precin10" type="number" min="0" class="form-control" value="" required></td>
+              <td><input id="prevuin10" type="number" step="0.01" class="form-control" value="28800.00" readonly></td>
+              <td><input id="prevtin10" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfin10" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularIn" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtin" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmin" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="col-xs-6">
-    <label for="origen">Valor cotizacion</label>
-    <input type="text" class="form-control" name="origen" id="origen" placeholder="$" />
-   </div>
 
-</div>
+    <div id="Aseo" class="tabcontent">
+      <h3>ASEO</h3>
+      <p>Esta es la pestaña para los detalles de ASEO</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">M/O Aseo general de obra inlcuye (materiales de aseo) </label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precpa1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupa1" type="number" step="0.01" class="form-control" value="20000.00" readonly></td>
+              <td><input id="prevtpa1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpa1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularAseo" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtpa" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmpa" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="Adicionales" class="tabcontent">
+      <h3>ADICIONALES  COTIZACION</h3>
+      <p>Esta es la pestaña para los detalles adicionales</p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Unidad de medida</th>
+              <th>Cantidad</th>
+              <th>Valor unitario para ejercicio</th>
+              <th>Valor total $</th>
+              <th>Precio final metros cuadrados</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><label><input type="checkbox" value="">S/I Recogida de Escombros en Lona (Incluye trasciego vertical/horizontal.)</label></th>
+              <td><input type="text" class="form-control" value="und" readonly></td>
+              <td><input id="precpad1" type="number" min="0" step="0.01" class="form-control" value="" required></td>
+              <td><input id="prevupad1" type="number" step="0.01" class="form-control" value="6000.00" readonly></td>
+              <td><input id="prevtpad1" type="number" step="0.01" class="form-control" value="" readonly></td>
+              <td><input id="prepfpad1" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td> <button id="btnCalcularAd" class="btn btn-primary">Calcular</button></td>
+              <td><input id="valtpad" type="number" class="form-control" value="" disabled></td>
+              <!--  <td><input id="valortotal" type="number" step="0.01" class="form-control" value="" readonly></td>-->
+              <td><input id="precfmpad" type="number" step="0.01" class="form-control" value="" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      function openDetail(evt, detailName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(detailName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+
+    <center>
+      <td> <button id="btnSave" class="btn btn-primary">Guardar Cotizacion</button></td>
+    </center>
+    <!--<center><button type="button" class="btn btn-success" onClick="window.location.href='detalles.html'" target="_blank">Ver Detalles</button></center>-->
+
+  </div>
+
+  <div class="col-xs-12" style="height:20px"></div>
 
 
-<div class="container col-xs-12 form-group has-success has-feedback">
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Actividad</th>
-      <th>Unidad de Medida</th>
-      <th>Valor unitario x metro cuadrado</th>
-      <th>Valor total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Preliminares</label></th>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-    </tr>
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Demoliciones</label></th>
-      <td><input type="text" value="und" disabled></td>
-      <td><input type="text" value="63.280,00" disabled></td>
-      <td><input type="text" value="" disabled></td>
-    </tr>
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Pañetes Afinados e impermeabilizacion</label></th>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-    </tr>
-
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Enchape</label></th>
-      <td><input type="text" value="und" disabled></td>
-      <td><input type="text" value="180.765,33" disabled></td>
-      <td><input type="text" value="" disabled></td>
-    </tr>
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Pintura</label></th>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-    </tr>
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Instalación de aparatos</label></th>
-      <td><input type="text" value="und" disabled></td>
-      <td><input type="text" value="84.266,67" disabled></td>
-      <td><input type="text" value="" disabled></td>
-    </tr>
-
-    <tr>
-      <th scope="row"><label><input type="checkbox" value="">Aseo</label></th>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value=""></td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td><label>Subtotal</label></td>
-      <td><input type="text" value=""></td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td><label>Adicionales</label></td>
-      <td><input type="text" value=""></td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td><label>Total</label></td>
-      <td><input type="text" value=""></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<div class="col-xs-12">
-<center>  <a href="detalles">Ver detalles</a></center>
-<!--<center><button type="button" class="btn btn-success" onClick="window.location.href='detalles.html'" target="_blank">Ver Detalles</button></center>-->
-
-</div>
-
-    <div class="col-xs-12" style="height:20px"></div>
-
-
-     	<!--<script src="../includes/jquery-2.1.0.min.js"></script>-->
-		<!--<script type="text/javascript" src="../includes/jquery-ui-1.10.4/js/jquery-ui-1.10.4.custom.js"></script>-->
+  <!--<script src="../includes/jquery-2.1.0.min.js"></script>-->
+  <!--<script type="text/javascript" src="../includes/jquery-ui-1.10.4/js/jquery-ui-1.10.4.custom.js"></script>-->
 
 
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  </body>
+  <script type="text/javascript" src="/js/scriptCotizacion.js"></script>
+
+</body>
+
 </html>
