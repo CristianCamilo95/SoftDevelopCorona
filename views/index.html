@@ -1,0 +1,77 @@
+<!DOCTYPE >
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--<link href="/css/stylelogin.css" rel="stylesheet" type="text/css">-->
+  <link href="/includes/bootstrap4/css/bootstrap.css" type="text/css" rel="stylesheet">
+  <script src="/includes/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="/includes/jquery-ui-1.10.4/js/jquery-ui-1.10.4.custom.js"></script>
+  <title>CORONA</title>
+</head>
+
+<body background="/imgs/fondoCorona.jpg">
+  <div class="col-xs-12">
+    <center><img src="/imgs/corona.png"><img></center>
+  </div>
+  <div class="container ">
+    <center><div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Inicio sesión: ASESOR</div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Solicite una nueva contraseña</a></div>
+                    </div>
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                        <form id="loginform" class="form-horizontal" role="form" method="post" action="/iniciarSesion">
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="usuarioLogin" type="text" class="form-control" name="usuarioLogin" value="" placeholder="usuario">
+                                    </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="claveLogin" type="password" class="form-control" name="claveLogin" placeholder="password">
+                                    </div>
+
+
+
+
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <button type="submit" class="btn btn-lg btn-primary btn-block"  name="entrar" id="entrar" value="Login">Login</button>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 control">
+                                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+        </div></center>
+  </div>
+  <!--librerias desde la web-->
+  <!-- jQuery library -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+  <!-- Latest compiled JavaScript -->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</body>
+
+</html>
