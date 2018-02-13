@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>PruebaGuardarCotización</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PruebaGuardarCotización</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=usuarioLogin</td>
+	<td>luisdaniel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=claveLogin</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=entrar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=IR SEGUIMIENTO COTIZACION</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ancho</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=largo</td>
+	<td>15</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=dias</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnMedidas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Medidas Ingresadas. Prosiga a definir los detalles del capitulo de obra!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;openDetail(event, 'Demoliciones')&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precdemo1</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precdemo2</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precdemo3</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Demoliciones &gt; div.table-responsive &gt; table.table &gt; tbody &gt; tr &gt; th &gt; label &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@value=''])[67]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@value=''])[71]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnCalcularDemo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;openDetail(event, 'Enchape')&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precen1</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precen2</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precen3</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precen4</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precen5</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnCalcularEn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;openDetail(event, 'Pintura')&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=precpin1</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#Pintura &gt; div.table-responsive &gt; table.table &gt; tbody &gt; tr &gt; th &gt; label &gt; input[type=&quot;checkbox&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnCalcularPin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnTot</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=btnSave</td>
+	<td>Guardar Cotizacion</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=btnSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Cotizacón Guardada.</td>
+	<td>Cotización Guardada</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
